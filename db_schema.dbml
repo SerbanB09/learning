@@ -1,0 +1,78 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table accounts {
+  id string [primary key]
+  name string
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table users {
+  id string [primary key]
+  account_id string
+  first_name string
+  last_name string
+  email string
+  password string
+  roles string[]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table venues {
+  id string [primary key]
+  account_id string
+  name string
+  address string
+}
+
+Table areas {
+  id string [primary key]
+  venue_id string
+  name string
+  width number
+  height number
+}
+
+Table table_types {
+  id string [primary key]
+  account_id string
+  name string
+  width number
+  height number
+}
+
+Table tables {
+  id string [primary key]
+  area_id string
+  table_type_id string
+  name string
+  seat_count number
+  position_x number
+  position_y number
+}
+
+Table bookings {
+  id string [primary key]
+  user_id string
+  venue_id string
+  table_id string
+  person_count number
+  date timestamp
+  note string
+}
+
+Ref: accounts.id < users.account_id
+Ref: accounts.id < venues.account_id
+Ref: accounts.id < table_types.account_id
+
+Ref: venues.id < areas.venue_id
+
+Ref: areas.id < tables.area_id
+
+Ref: table_types.id < tables.table_type_id
+
+Ref: users.id < bookings.user_id
+Ref: venues.id < bookings.venue_id
+Ref: tables.id < bookings.table_id

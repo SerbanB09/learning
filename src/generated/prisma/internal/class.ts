@@ -23,7 +23,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/Users/serban.bibire/Projects/learning/src/generated/prisma",
+      "value": "/Users/andrei.tomita/Projects/SpotAPP/learning/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -32,12 +32,15 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin",
-        "native": true
+        "value": "darwin-arm64"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "darwin"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/serban.bibire/Projects/learning/prisma/schema.prisma",
+    "sourceFilePath": "/Users/andrei.tomita/Projects/SpotAPP/learning/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma",
@@ -55,8 +58,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel accounts {\n  id         String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name       String\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "6c2cc06ff86046c2dc14c50be517e4edac82cc1933cbe3011a48474bcf83ee26",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"darwin-arm64\", \"darwin\"]\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel accounts {\n  id         String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name       String\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "05a45a183774ceb9adf6f83795c90c05ba103759b9793ea6f82db25336c6ae8b",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
