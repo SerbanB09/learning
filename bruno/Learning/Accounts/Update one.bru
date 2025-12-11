@@ -1,17 +1,23 @@
 meta {
-  name: Get one
+  name: Update one
   type: http
-  seq: 2
+  seq: 4
 }
 
-get {
+patch {
   url: {{host}}/accounts/:id
-  body: none
+  body: json
   auth: inherit
 }
 
 params:path {
   id: 693b2c79bf78265436b6c08f
+}
+
+body:json {
+  {
+    "name": "Caru cu bere updated"
+  }
 }
 
 settings {

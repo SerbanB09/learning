@@ -3,6 +3,7 @@
 import express from 'express';
 import {prisma} from "./manager/prisma";
 import dotenv from 'dotenv';
+import {createOne, deleteOne, findMany, getOne, updateOne} from "./controllers/accounts";
 
 dotenv.config();
 
@@ -11,17 +12,14 @@ const port = process.env.PORT
 
 app.use(express.json());
 
-app.put('/accounts', (req, res) => {
-    let data = req.body;
+// Accounts
+app.get('/accounts', findMany)
+app.get('/accounts/:id', getOne)
+app.patch('/accounts/:id', updateOne)
+app.delete('/accounts/:id', deleteOne)
+app.put('/accounts', createOne)
 
-    const account = prisma.accounts.create({
-        data
-    })
-
-    console.log(account)
-
-    res.send(account);
-})
+//Users
 
 app.listen(
     port,
