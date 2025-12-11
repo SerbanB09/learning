@@ -1,0 +1,16 @@
+meta {
+  name: Hello world
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{host}}/
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

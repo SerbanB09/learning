@@ -1,0 +1,22 @@
+meta {
+  name: Create one
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{host}}/accounts
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Caru cu bere"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
