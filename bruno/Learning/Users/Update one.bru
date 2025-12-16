@@ -4,14 +4,25 @@ meta {
   seq: 4
 }
 
-get {
+patch {
   url: {{host}}/users/:id
-  body: none
+  body: json
   auth: inherit
 }
 
 params:path {
-  id: 
+  id: 69416fb1080b0efbdc575e6f
+}
+
+body:json {
+  {
+    "account_id": "69416c36feb952cfa0dddf5b",
+    "first_name": "Andrei",
+    "last_name": "Tomita",
+    "email": "andrei.tomitaaazz@gmail.com",
+    "password": "tomizz123",
+    "roles": ["mentor", "developer"]
+  }
 }
 
 settings {
