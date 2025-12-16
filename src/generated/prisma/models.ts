@@ -10,4 +10,5 @@
  */
 export type * from './models/accounts'
 export type * from './models/users'
+export type * from './models/venues'
 export type * from './commonInputTypes'

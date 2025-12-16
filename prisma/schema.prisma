@@ -27,3 +27,10 @@ model users {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }
+
+model venues {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  account_id String
+  name       String
+  address    String
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Create one
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{host}}/users
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "account_id": "69416c36feb952cfa0dddf5b",
+    "first_name": "Andrei",
+    "last_name": "Tomita",
+    "email": "andrei.tomita@gmail.com",
+    "password": "tomizz123",
+    "roles": ["mentor", "developer"]
+  }  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

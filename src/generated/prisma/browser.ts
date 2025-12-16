@@ -27,3 +27,8 @@ export type accounts = Prisma.accountsModel
  * 
  */
 export type users = Prisma.usersModel
+/**
+ * Model venues
+ * 
+ */
+export type venues = Prisma.venuesModel

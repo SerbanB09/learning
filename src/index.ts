@@ -4,6 +4,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import * as accounts from "./controllers/accounts";
 import * as users from "./controllers/users";
+import * as venues from "./controllers/venues";
 
 dotenv.config();
 
@@ -25,6 +26,13 @@ app.get('/users/:id', users.getOne)
 app.patch('/users/:id', users.updateOne)
 app.delete('/users/:id', users.deleteOne)
 app.put('/users', users.createOne)
+
+// Venues
+app.get('/venues', venues.findMany)
+app.get('/venues/:id', venues.getOne)
+app.patch('/venues/:id', venues.updateOne)
+app.delete('/venues/:id', venues.deleteOne)
+app.put('/venues', venues.createOne)
 
 app.listen(
     port,

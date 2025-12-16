@@ -1,0 +1,20 @@
+meta {
+  name: Get one
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{host}}/users/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 69416d382926f683107d0ea9
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

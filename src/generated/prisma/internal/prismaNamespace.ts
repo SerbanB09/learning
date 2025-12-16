@@ -391,7 +391,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   accounts: 'accounts',
-  users: 'users'
+  users: 'users',
+  venues: 'venues'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "accounts" | "users"
+    modelProps: "accounts" | "users" | "venues"
     txIsolationLevel: never
   }
   model: {
@@ -559,6 +560,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    venues: {
+      payload: Prisma.$venuesPayload<ExtArgs>
+      fields: Prisma.venuesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.venuesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$venuesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.venuesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$venuesPayload>
+        }
+        findFirst: {
+          args: Prisma.venuesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$venuesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.venuesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$venuesPayload>
+        }
+        findMany: {
+          args: Prisma.venuesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$venuesPayload>[]
+        }
+        create: {
+          args: Prisma.venuesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$venuesPayload>
+        }
+        createMany: {
+          args: Prisma.venuesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.venuesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$venuesPayload>
+        }
+        update: {
+          args: Prisma.venuesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$venuesPayload>
+        }
+        deleteMany: {
+          args: Prisma.venuesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.venuesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.venuesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$venuesPayload>
+        }
+        aggregate: {
+          args: Prisma.VenuesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVenues>
+        }
+        groupBy: {
+          args: Prisma.venuesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VenuesGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.venuesFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.venuesAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.venuesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VenuesCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -599,6 +674,16 @@ export const UsersScalarFieldEnum = {
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+export const VenuesScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  name: 'name',
+  address: 'address'
+} as const
+
+export type VenuesScalarFieldEnum = (typeof VenuesScalarFieldEnum)[keyof typeof VenuesScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -752,6 +837,7 @@ export interface PrismaClientOptions {
 export type GlobalOmitConfig = {
   accounts?: Prisma.accountsOmit
   users?: Prisma.usersOmit
+  venues?: Prisma.venuesOmit
 }
 
 /* Types for Logging */
