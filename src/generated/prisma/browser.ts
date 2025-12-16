@@ -22,3 +22,8 @@ export * from './enums';
  * 
  */
 export type accounts = Prisma.accountsModel
+/**
+ * Model users
+ * 
+ */
+export type users = Prisma.usersModel

@@ -2,38 +2,39 @@ import {prisma} from "../manager/prisma";
 import express from "express";
 
 async function findMany(req: express.Request, res: express.Response) {
-    const accounts = await prisma.accounts.findMany();
+    const users = await prisma.users.findMany();
 
-    res.status(200).send(accounts);
+    res.status(200).send(users);
 }
 
 async function getOne(req: express.Request, res: express.Response) {
     try {
-        const account = await prisma.accounts.findUnique({
+        const user = await prisma.users.findUnique({
             where: {
                 id: req.params.id
             }
         });
 
-        res.send(account);
+        res.send(user);
     } catch (e) {
         res.status(404).send({
             "error": "Resource not found"
         });
     }
 }
+
 async function updateOne(req: express.Request, res: express.Response) {
     let data = req.body;
 
     try {
-        const account = await prisma.accounts.update({
+        const user = await prisma.users.update({
             where: {
                 id: req.params.id
             },
             data
         });
 
-        res.status(200).send(account);
+        res.status(200).send(user);
     } catch (e) {
         res.status(404).send({
             "error": "Resource not found"
@@ -43,7 +44,7 @@ async function updateOne(req: express.Request, res: express.Response) {
 
 async function deleteOne(req: express.Request, res: express.Response) {
     try {
-        await prisma.accounts.delete({
+        await prisma.users.delete({
             where: {
                 id: req.params.id
             }
@@ -58,13 +59,13 @@ async function deleteOne(req: express.Request, res: express.Response) {
 }
 
 async function createOne(req: express.Request, res: express.Response) {
-    let data = req.body;
+    let data = req.body
 
-    const account = await prisma.accounts.create({
+    const user = await prisma.users.create({
         data
     })
 
-    res.status(201).send(account);
+    res.status(201).send(user);
 }
 
-export {findMany, getOne, updateOne, deleteOne, createOne}
+export {findMany, getOne, deleteOne, createOne, updateOne}

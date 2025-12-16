@@ -1,0 +1,20 @@
+meta {
+  name: Delete one
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{host}}/accounts/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 693b2c79bf78265436b6c08f
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

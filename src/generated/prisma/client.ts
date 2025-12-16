@@ -51,3 +51,8 @@ path.join(process.cwd(), "src/generated/prisma/libquery_engine-darwin.dylib.node
  * 
  */
 export type accounts = Prisma.accountsModel
+/**
+ * Model users
+ * 
+ */
+export type users = Prisma.usersModel
