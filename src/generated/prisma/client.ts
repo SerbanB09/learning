@@ -61,3 +61,8 @@ export type users = Prisma.usersModel
  * 
  */
 export type venues = Prisma.venuesModel
+/**
+ * Model table_types
+ * 
+ */
+export type table_types = Prisma.table_typesModel

@@ -392,7 +392,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   accounts: 'accounts',
   users: 'users',
-  venues: 'venues'
+  venues: 'venues',
+  table_types: 'table_types'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -408,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "accounts" | "users" | "venues"
+    modelProps: "accounts" | "users" | "venues" | "table_types"
     txIsolationLevel: never
   }
   model: {
@@ -634,6 +635,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    table_types: {
+      payload: Prisma.$table_typesPayload<ExtArgs>
+      fields: Prisma.table_typesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.table_typesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$table_typesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.table_typesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$table_typesPayload>
+        }
+        findFirst: {
+          args: Prisma.table_typesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$table_typesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.table_typesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$table_typesPayload>
+        }
+        findMany: {
+          args: Prisma.table_typesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$table_typesPayload>[]
+        }
+        create: {
+          args: Prisma.table_typesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$table_typesPayload>
+        }
+        createMany: {
+          args: Prisma.table_typesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.table_typesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$table_typesPayload>
+        }
+        update: {
+          args: Prisma.table_typesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$table_typesPayload>
+        }
+        deleteMany: {
+          args: Prisma.table_typesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.table_typesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.table_typesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$table_typesPayload>
+        }
+        aggregate: {
+          args: Prisma.Table_typesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTable_types>
+        }
+        groupBy: {
+          args: Prisma.table_typesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Table_typesGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.table_typesFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.table_typesAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.table_typesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Table_typesCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -686,6 +761,17 @@ export const VenuesScalarFieldEnum = {
 export type VenuesScalarFieldEnum = (typeof VenuesScalarFieldEnum)[keyof typeof VenuesScalarFieldEnum]
 
 
+export const Table_typesScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  name: 'name',
+  width: 'width',
+  height: 'height'
+} as const
+
+export type Table_typesScalarFieldEnum = (typeof Table_typesScalarFieldEnum)[keyof typeof Table_typesScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -733,6 +819,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -838,6 +938,7 @@ export type GlobalOmitConfig = {
   accounts?: Prisma.accountsOmit
   users?: Prisma.usersOmit
   venues?: Prisma.venuesOmit
+  table_types?: Prisma.table_typesOmit
 }
 
 /* Types for Logging */
