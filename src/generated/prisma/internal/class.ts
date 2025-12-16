@@ -23,7 +23,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/Users/andrei.tomita/Projects/SpotAPP/learning/src/generated/prisma",
+      "value": "/Users/serban.bibire/Projects/learning/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -40,7 +40,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/andrei.tomita/Projects/SpotAPP/learning/prisma/schema.prisma",
+    "sourceFilePath": "/Users/serban.bibire/Projects/learning/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma",
@@ -58,10 +58,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider      = \"prisma-client\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"darwin-arm64\", \"darwin\"]\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel accounts {\n  id         String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name       String\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "05a45a183774ceb9adf6f83795c90c05ba103759b9793ea6f82db25336c6ae8b",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel accounts {\n  id         String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name       String\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n\nmodel users {\n  id         String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  account_id String\n  first_name String\n  last_name  String\n  email      String\n  password   String\n  roles      String[]\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "d03b71d3081a4a8981cbcf42e2cd7cc84337afd46e9b70d864df6a767ad888f1",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"darwin-arm64\", \"darwin\"]\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel accounts {\n  id         String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name       String\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n\nmodel users {\n  id         String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  account_id String\n  first_name String\n  last_name  String\n  email      String\n  password   String\n  roles      String[]\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "1f3a4077ddf5c105aae7221903aac02dc39c574709dabb94d8365d5c1d7501d7",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
