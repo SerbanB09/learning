@@ -393,7 +393,8 @@ export const ModelName = {
   accounts: 'accounts',
   users: 'users',
   venues: 'venues',
-  table_types: 'table_types'
+  table_types: 'table_types',
+  areas: 'areas'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -409,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "accounts" | "users" | "venues" | "table_types"
+    modelProps: "accounts" | "users" | "venues" | "table_types" | "areas"
     txIsolationLevel: never
   }
   model: {
@@ -709,6 +710,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    areas: {
+      payload: Prisma.$areasPayload<ExtArgs>
+      fields: Prisma.areasFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.areasFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$areasPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.areasFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$areasPayload>
+        }
+        findFirst: {
+          args: Prisma.areasFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$areasPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.areasFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$areasPayload>
+        }
+        findMany: {
+          args: Prisma.areasFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$areasPayload>[]
+        }
+        create: {
+          args: Prisma.areasCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$areasPayload>
+        }
+        createMany: {
+          args: Prisma.areasCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.areasDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$areasPayload>
+        }
+        update: {
+          args: Prisma.areasUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$areasPayload>
+        }
+        deleteMany: {
+          args: Prisma.areasDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.areasUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.areasUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$areasPayload>
+        }
+        aggregate: {
+          args: Prisma.AreasAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAreas>
+        }
+        groupBy: {
+          args: Prisma.areasGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AreasGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.areasFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.areasAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.areasCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AreasCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -770,6 +845,17 @@ export const Table_typesScalarFieldEnum = {
 } as const
 
 export type Table_typesScalarFieldEnum = (typeof Table_typesScalarFieldEnum)[keyof typeof Table_typesScalarFieldEnum]
+
+
+export const AreasScalarFieldEnum = {
+  id: 'id',
+  venue_id: 'venue_id',
+  name: 'name',
+  width: 'width',
+  height: 'height'
+} as const
+
+export type AreasScalarFieldEnum = (typeof AreasScalarFieldEnum)[keyof typeof AreasScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -939,6 +1025,7 @@ export type GlobalOmitConfig = {
   users?: Prisma.usersOmit
   venues?: Prisma.venuesOmit
   table_types?: Prisma.table_typesOmit
+  areas?: Prisma.areasOmit
 }
 
 /* Types for Logging */

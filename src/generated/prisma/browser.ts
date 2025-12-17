@@ -37,3 +37,8 @@ export type venues = Prisma.venuesModel
  * 
  */
 export type table_types = Prisma.table_typesModel
+/**
+ * Model areas
+ * 
+ */
+export type areas = Prisma.areasModel

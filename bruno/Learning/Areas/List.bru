@@ -1,17 +1,13 @@
 meta {
-  name: Update one
+  name: List
   type: http
-  seq: 5
+  seq: 6
 }
 
-patch {
-  url: {{host}}/venues/:id
+get {
+  url: {{host}}/areas
   body: none
   auth: inherit
-}
-
-params:path {
-  id: 
 }
 
 settings {

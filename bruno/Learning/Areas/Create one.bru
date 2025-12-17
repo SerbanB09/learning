@@ -1,0 +1,25 @@
+meta {
+  name: Create one
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{host}}/areas
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "venue_id": "694178568bc12c2f89e32139",
+    "name": "Terasa",
+    "width": 42,
+    "height": 108
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
