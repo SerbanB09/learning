@@ -71,3 +71,13 @@ export type table_types = Prisma.table_typesModel
  * 
  */
 export type areas = Prisma.areasModel
+/**
+ * Model tables
+ * 
+ */
+export type tables = Prisma.tablesModel
+/**
+ * Model bookings
+ * 
+ */
+export type bookings = Prisma.bookingsModel

@@ -1,17 +1,17 @@
 meta {
-  name: Update one
+  name: Delete one
   type: http
-  seq: 5
+  seq: 6
 }
 
-patch {
-  url: {{host}}/areas/:id
+delete {
+  url: {{host}}/bookings/:id
   body: none
   auth: inherit
 }
 
 params:path {
-  id: 
+  id: 6942e8036913c613bf213cc8
 }
 
 settings {

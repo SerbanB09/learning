@@ -1,0 +1,27 @@
+meta {
+  name: Create one
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{host}}/bookings
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "user_id": "69416fb1080b0efbdc575e6f",
+    "venue_id": "694178568bc12c2f89e32139",
+    "table_id": "69432a7142af4a2a44b861de",
+    "person_count": 6,
+    "date": "2025-12-25T20:00:00Z",
+    "note": "Una dintre persoane este alergica la alune"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Create one
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{host}}/tables
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "area_id": "6942e8256913c613bf213cc9",
+    "table_type_id": "694329fd42af4a2a44b861dd",
+    "name": "1",
+    "seat_count": 6,
+    "position_x": 12,
+    "position_y": 60
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

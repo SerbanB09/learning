@@ -1,13 +1,17 @@
 meta {
-  name: List
+  name: Get one
   type: http
-  seq: 4
+  seq: 3
 }
 
 get {
-  url: {{host}}/areas
+  url: {{host}}/tables/:id
   body: none
   auth: inherit
+}
+
+params:path {
+  id: 
 }
 
 settings {

@@ -7,6 +7,8 @@ import * as users from "./controllers/users";
 import * as venues from "./controllers/venues";
 import * as table_types from "./controllers/table_types";
 import * as areas from "./controllers/areas";
+import * as tables from "./controllers/tables";
+import * as bookings from "./controllers/bookings";
 
 dotenv.config();
 
@@ -49,6 +51,20 @@ app.get('/areas/:id', areas.getOne)
 app.patch('/areas/:id', areas.updateOne)
 app.delete('/areas/:id', areas.deleteOne)
 app.put('/areas', areas.createOne)
+
+// Tables
+app.get('/tables', tables.findMany)
+app.get('/tables/:id', tables.getOne)
+app.patch('/tables/:id', tables.updateOne)
+app.delete('/tables/:id', tables.deleteOne)
+app.put('/tables', tables.createOne)
+
+// Bookings
+app.get('/bookings', bookings.findMany)
+app.get('/bookings/:id', bookings.getOne)
+app.patch('/bookings/:id', bookings.updateOne)
+app.delete('/bookings/:id', bookings.deleteOne)
+app.put('/bookings', bookings.createOne)
 
 app.listen(
     port,

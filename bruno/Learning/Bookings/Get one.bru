@@ -1,13 +1,17 @@
 meta {
-  name: List
+  name: Get one
   type: http
-  seq: 4
+  seq: 6
 }
 
 get {
-  url: {{host}}/areas
+  url: {{host}}/bookings/:id
   body: none
   auth: inherit
+}
+
+params:path {
+  id: 
 }
 
 settings {

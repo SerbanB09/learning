@@ -50,3 +50,23 @@ model areas {
   width    Float
   height   Float
 }
+
+model tables {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  area_id       String
+  table_type_id String
+  name          String
+  seat_count    Int
+  position_x    Float
+  position_y    Float
+}
+
+model bookings {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id      String
+  venue_id     String
+  table_id     String
+  person_count Int
+  date         DateTime
+  note         String
+}

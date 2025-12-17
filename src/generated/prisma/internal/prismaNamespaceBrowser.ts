@@ -53,7 +53,9 @@ export const ModelName = {
   users: 'users',
   venues: 'venues',
   table_types: 'table_types',
-  areas: 'areas'
+  areas: 'areas',
+  tables: 'tables',
+  bookings: 'bookings'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -117,6 +119,32 @@ export const AreasScalarFieldEnum = {
 } as const
 
 export type AreasScalarFieldEnum = (typeof AreasScalarFieldEnum)[keyof typeof AreasScalarFieldEnum]
+
+
+export const TablesScalarFieldEnum = {
+  id: 'id',
+  area_id: 'area_id',
+  table_type_id: 'table_type_id',
+  name: 'name',
+  seat_count: 'seat_count',
+  position_x: 'position_x',
+  position_y: 'position_y'
+} as const
+
+export type TablesScalarFieldEnum = (typeof TablesScalarFieldEnum)[keyof typeof TablesScalarFieldEnum]
+
+
+export const BookingsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  venue_id: 'venue_id',
+  table_id: 'table_id',
+  person_count: 'person_count',
+  date: 'date',
+  note: 'note'
+} as const
+
+export type BookingsScalarFieldEnum = (typeof BookingsScalarFieldEnum)[keyof typeof BookingsScalarFieldEnum]
 
 
 export const SortOrder = {
