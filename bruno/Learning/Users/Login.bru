@@ -1,0 +1,23 @@
+meta {
+  name: Login
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{host}}/users/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email": "andrei.tomita@gmail.com",
+    "password": "tomizz123"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

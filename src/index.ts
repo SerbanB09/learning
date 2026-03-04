@@ -30,6 +30,7 @@ app.get('/users/:id', users.getOne)
 app.patch('/users/:id', users.updateOne)
 app.delete('/users/:id', users.deleteOne)
 app.put('/users', users.createOne)
+app.post('/users/login', users.login)
 
 // Venues
 app.get('/venues', venues.findMany)
