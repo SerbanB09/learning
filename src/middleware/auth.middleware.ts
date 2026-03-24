@@ -1,0 +1,31 @@
+import express from 'express';
+import jwt from 'jsonwebtoken';
+
+declare global {
+    namespace Express {
+        interface Request {
+            user?: any;
+        }
+    }
+}
+
+async function authenticate(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        res.status(401).send({"error": "No token provided"});
+        return;
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+        req.user = decoded;
+        next();
+    } catch (e) {
+        res.status(401).send({"error": "Invalid token"});
+    }
+}
+
+export {authenticate}

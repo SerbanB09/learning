@@ -2,7 +2,11 @@ import {prisma} from "../manager/prisma";
 import express from "express";
 
 async function findMany(req: express.Request, res: express.Response) {
-    const bookings = await prisma.bookings.findMany();
+    const bookings = await prisma.bookings.findMany({
+        where: {
+            user_id: req.user.id
+        }
+    });
 
     res.status(200).send(bookings);
 }
@@ -11,7 +15,8 @@ async function getOne(req: express.Request, res: express.Response) {
     try {
         const booking = await prisma.bookings.findUnique({
             where: {
-                id: req.params.id
+                id: req.params.id,
+                user_id: req.user.id
             }
         });
 
@@ -29,7 +34,8 @@ async function updateOne(req: express.Request, res: express.Response) {
     try {
         const booking = await prisma.bookings.update({
             where: {
-                id: req.params.id
+                id: req.params.id,
+                user_id: req.user.id
             },
             data
         });
@@ -46,7 +52,8 @@ async function deleteOne(req: express.Request, res: express.Response) {
     try {
         await prisma.bookings.delete({
             where: {
-                id: req.params.id
+                id: req.params.id,
+                user_id: req.user.id
             }
         });
 
@@ -59,10 +66,13 @@ async function deleteOne(req: express.Request, res: express.Response) {
 }
 
 async function createOne(req: express.Request, res: express.Response) {
-    let data = req.body
+    let {user_id, ...rest_of_data} = req.body
 
     const booking = await prisma.bookings.create({
-        data
+        data: {
+            ...rest_of_data,
+            user_id: req.user.id
+        }
     })
 
     res.status(201).send(booking);

@@ -93,7 +93,7 @@ async function login(req: express.Request, res: express.Response) {
 
         const valid_password = await bcrypt.compare(password, user.password);
         if (valid_password) {
-            const token = jwt.sign({ id: user.id },
+            const token = jwt.sign({ id: user.id, account_id: user.account_id},
                 process.env.JWT_SECRET as string, { expiresIn: '1d' });
             res.status(200).send({ token });
         } else {
