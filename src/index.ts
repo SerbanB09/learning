@@ -8,15 +8,19 @@ import * as venues from "./controllers/venues";
 import * as table_types from "./controllers/table_types";
 import * as areas from "./controllers/areas";
 import * as tables from "./controllers/tables";
-import * as bookings from "./controllers/bookings";
-import { authenticate } from "./middleware/auth.middleware";
+import * as bookings from "./controllers/bookings"
+import userRoutes from './routes/users';
+import { authenticate } from "./middlewares/auth.middleware";
+import { errorHandler } from './middlewares/errorHandler';
 
 dotenv.config();
 
 const app = express()
-const port = process.env.PORT
 
 app.use(express.json());
+
+// Users
+app.use('/users', userRoutes);
 
 // Accounts
 app.get('/accounts', accounts.findMany)
@@ -24,14 +28,6 @@ app.get('/accounts/:id', accounts.getOne)
 app.patch('/accounts/:id', accounts.updateOne)
 app.delete('/accounts/:id', accounts.deleteOne)
 app.put('/accounts', accounts.createOne)
-
-// Users
-app.get('/users', authenticate, users.findMany)
-app.get('/users/:id', authenticate, users.getOne)
-app.patch('/users/:id', authenticate, users.updateOne)
-app.delete('/users/:id', authenticate, users.deleteOne)
-app.put('/users', users.createOne)
-app.post('/users/login', users.login)
 
 // Venues
 app.get('/venues', authenticate, venues.findMany)
@@ -68,9 +64,6 @@ app.patch('/bookings/:id', authenticate, bookings.updateOne)
 app.delete('/bookings/:id', authenticate, bookings.deleteOne)
 app.put('/bookings', authenticate, bookings.createOne)
 
-app.listen(
-    port,
-    () => {
-        console.log(`Example app listening on port ${port}`)
-    }
-)
+app.use(errorHandler);
+
+export default app;
