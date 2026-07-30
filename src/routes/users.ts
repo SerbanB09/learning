@@ -1,4 +1,3 @@
-// src/routes/users.ts
 import { Router } from 'express';
 import { findMany, getOne, deleteOne, createOne, updateOne, login } from '../controllers/users';
 import { validate } from '../middlewares/validate';
@@ -6,11 +5,11 @@ import { loginSchema } from '../schemas/user.schema';
 
 const router = Router();
 
-// Rute publice
+// Public routes
 router.post('/login', validate(loginSchema), login);
 router.post('/', createOne);
 
-// Rute care vor fi protejate (ex: cu autentificare/validare)
+// Protected routes
 router.get('/', findMany);
 router.get('/:id', getOne);
 router.put('/:id', updateOne);
