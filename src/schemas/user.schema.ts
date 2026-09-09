@@ -6,3 +6,22 @@ export const loginSchema = z.object({
         password: z.string().min(6, 'Password must contain minimum 6 characters')
     })
 });
+
+export const createUserSchema = z.object({
+    body: z.object({
+        account_id: z.string().min(1, 'account_id is required'),
+        first_name: z.string().min(1, 'first_name is required'),
+        last_name: z.string().min(1, 'last_name is required'),
+        email: z.email('Invalid email'),
+        password: z.string().min(6, 'Password must contain minimum 6 characters')
+    })
+});
+
+export const updateUserSchema = z.object({
+    body: z.object({
+        first_name: z.string().min(1).optional(),
+        last_name: z.string().min(1).optional(),
+        email: z.email('Invalid email').optional(),
+        password: z.string().min(6, 'Password must contain minimum 6 characters').optional()
+    })
+});

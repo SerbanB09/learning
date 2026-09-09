@@ -1,7 +1,8 @@
 import {prisma} from "../manager/prisma";
-import express from "express";
+import { asyncHandler } from "../utils/asyncHandler";
+import { AppError } from "../errors/AppError";
 
-const BOOKING_DURATION_MS = 2 * 60 * 60 * 1000; // durată presupusă per rezervare, pentru verificarea de suprapunere
+const BOOKING_DURATION_MS = 2 * 60 * 60 * 1000;
 
 async function getAccountAreaIds(account_id: string): Promise<string[]> {
     const venues = await prisma.venues.findMany({
@@ -33,100 +34,81 @@ async function hasConflict(table_id: string, date: Date, excludeBookingId?: stri
     return overlapping.length > 0;
 }
 
-async function findMany(req: express.Request, res: express.Response) {
+export const findMany = asyncHandler(async (req, res) => {
     const bookings = await prisma.bookings.findMany({
+        where: { user_id: req.user.id }
+    });
+
+    res.status(200).send(bookings);
+});
+
+export const getOne = asyncHandler(async (req, res) => {
+    const booking = await prisma.bookings.findUnique({
         where: {
+            id: req.params.id,
             user_id: req.user.id
         }
     });
 
-    res.status(200).send(bookings);
-}
-
-async function getOne(req: express.Request, res: express.Response) {
-    try {
-        const booking = await prisma.bookings.findUnique({
-            where: {
-                id: req.params.id,
-                user_id: req.user.id
-            }
-        });
-
-        if (!booking) {
-            res.status(404).send({ "error": "Resource not found" });
-            return;
-        }
-
-        res.send(booking);
-    } catch (e) {
-        res.status(404).send({
-            "error": "Resource not found"
-        });
+    if (!booking) {
+        throw new AppError('Booking not found', 404);
     }
-}
 
-async function updateOne(req: express.Request, res: express.Response) {
-    let data = req.body;
+    res.send(booking);
+});
 
-    try {
-        const existing = await prisma.bookings.findUnique({
-            where: {
-                id: req.params.id,
-                user_id: req.user.id
-            }
-        });
+export const updateOne = asyncHandler(async (req, res) => {
+    const data = req.body;
 
-        if (!existing) {
-            res.status(404).send({ "error": "Resource not found" });
-            return;
+    const existing = await prisma.bookings.findUnique({
+        where: {
+            id: req.params.id,
+            user_id: req.user.id
         }
+    });
 
-        const table_id = data.table_id ?? existing.table_id;
-        const date = data.date ? new Date(data.date) : existing.date;
+    if (!existing) {
+        throw new AppError('Booking not found', 404);
+    }
 
-        if (data.table_id || data.date) {
-            const conflict = await hasConflict(table_id, date, existing.id);
-            if (conflict) {
-                res.status(409).send({ "error": "Table already booked around this time" });
-                return;
-            }
+    const table_id = data.table_id ?? existing.table_id;
+    const date = data.date ? new Date(data.date) : existing.date;
+
+    if (data.table_id || data.date) {
+        const conflict = await hasConflict(table_id, date, existing.id);
+        if (conflict) {
+            throw new AppError('Table already booked around this time', 409);
         }
-
-        const booking = await prisma.bookings.update({
-            where: {
-                id: req.params.id,
-                user_id: req.user.id
-            },
-            data
-        });
-
-        res.status(200).send(booking);
-    } catch (e) {
-        res.status(404).send({
-            "error": "Resource not found"
-        });
     }
-}
 
-async function deleteOne(req: express.Request, res: express.Response) {
-    try {
-        await prisma.bookings.delete({
-            where: {
-                id: req.params.id,
-                user_id: req.user.id
-            }
-        });
+    const booking = await prisma.bookings.update({
+        where: {
+            id: req.params.id,
+            user_id: req.user.id
+        },
+        data
+    });
 
-        res.status(204).send('');
-    } catch (e) {
-        res.status(404).send({
-            "error": "Resource not found"
-        });
+    res.status(200).send(booking);
+});
+
+export const deleteOne = asyncHandler(async (req, res) => {
+    const booking = await prisma.bookings.delete({
+        where: {
+            id: req.params.id,
+            user_id: req.user.id
+        }
+    }).catch(() => null);
+
+    if (!booking) {
+        throw new AppError('Booking not found', 404);
     }
-}
 
-async function createOne(req: express.Request, res: express.Response) {
-    let {user_id, ...rest_of_data} = req.body;
+    res.status(204).send();
+});
+
+export const createOne = asyncHandler(async (req, res) => {
+    const { user_id, ...rest_of_data } = req.body;
 
     const areaIds = await getAccountAreaIds(req.user.account_id);
 
@@ -135,16 +117,14 @@ async function createOne(req: express.Request, res: express.Response) {
     });
 
     if (!table || !areaIds.includes(table.area_id)) {
-        res.status(400).send({ "error": "Invalid table_id" });
-        return;
+        throw new AppError('Invalid table_id', 400);
     }
 
     const date = new Date(rest_of_data.date);
 
     const conflict = await hasConflict(rest_of_data.table_id, date);
     if (conflict) {
-        res.status(409).send({ "error": "Table already booked around this time" });
-        return;
+        throw new AppError('Table already booked around this time', 409);
     }
 
     const booking = await prisma.bookings.create({
@@ -153,9 +133,7 @@ async function createOne(req: express.Request, res: express.Response) {
             date,
             user_id: req.user.id
         }
-    })
+    });
 
     res.status(201).send(booking);
-}
-
-export {findMany, getOne, deleteOne, createOne, updateOne}
+});

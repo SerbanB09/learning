@@ -119,7 +119,7 @@ export const login = asyncHandler(async (req, res) => {
         throw new AppError('Invalid email or password', 401);
     }
 
-    const token = jwt.sign({ id: user.id, account_id: user.account_id },
+    const token = jwt.sign({ id: user.id, account_id: user.account_id, roles: user.roles },
         process.env.JWT_SECRET as string,
         { expiresIn: '1d' }
     );

@@ -1,116 +1,97 @@
 import {prisma} from "../manager/prisma";
-import express from "express";
+import { asyncHandler } from "../utils/asyncHandler";
+import { AppError } from "../errors/AppError";
 
-async function findMany(req: express.Request, res: express.Response) {
+async function getOwnedVenueIds(account_id: string): Promise<string[]> {
     const venues = await prisma.venues.findMany({
-        where: { account_id: req.user.account_id },
+        where: { account_id },
         select: { id: true }
     });
-    const venueIds = venues.map(v => v.id);
+    return venues.map(v => v.id);
+}
+
+export const findMany = asyncHandler(async (req, res) => {
+    const venueIds = await getOwnedVenueIds(req.user.account_id);
 
     const areas = await prisma.areas.findMany({
         where: { venue_id: { in: venueIds } }
     });
 
     res.status(200).send(areas);
-}
+});
 
-async function getOne(req: express.Request, res: express.Response) {
-    try {
-        const area = await prisma.areas.findUnique({
-            where: { id: req.params.id }
-        });
+export const getOne = asyncHandler(async (req, res) => {
+    const area = await prisma.areas.findUnique({
+        where: { id: req.params.id }
+    });
 
-        if (!area) {
-            res.status(404).send({ "error": "Resource not found" });
-            return;
-        }
-
-        const venue = await prisma.venues.findUnique({
-            where: { id: area.venue_id, account_id: req.user.account_id }
-        });
-
-        if (!venue) {
-            res.status(404).send({ "error": "Resource not found" });
-            return;
-        }
-
-        res.send(area);
-    } catch (e) {
-        res.status(404).send({
-            "error": "Resource not found"
-        });
+    if (!area) {
+        throw new AppError('Area not found', 404);
     }
-}
 
-async function updateOne(req: express.Request, res: express.Response) {
+    const venue = await prisma.venues.findUnique({
+        where: { id: area.venue_id, account_id: req.user.account_id }
+    });
+
+    if (!venue) {
+        throw new AppError('Area not found', 404);
+    }
+
+    res.send(area);
+});
+
+export const updateOne = asyncHandler(async (req, res) => {
     const { venue_id, ...data } = req.body;
 
-    try {
-        const existing = await prisma.areas.findUnique({
-            where: { id: req.params.id }
-        });
+    const existing = await prisma.areas.findUnique({
+        where: { id: req.params.id }
+    });
 
-        if (!existing) {
-            res.status(404).send({ "error": "Resource not found" });
-            return;
-        }
-
-        const venue = await prisma.venues.findUnique({
-            where: { id: existing.venue_id, account_id: req.user.account_id }
-        });
-
-        if (!venue) {
-            res.status(404).send({ "error": "Resource not found" });
-            return;
-        }
-
-        const area = await prisma.areas.update({
-            where: { id: req.params.id },
-            data
-        });
-
-        res.status(200).send(area);
-    } catch (e) {
-        res.status(404).send({
-            "error": "Resource not found"
-        });
+    if (!existing) {
+        throw new AppError('Area not found', 404);
     }
-}
 
-async function deleteOne(req: express.Request, res: express.Response) {
-    try {
-        const existing = await prisma.areas.findUnique({
-            where: { id: req.params.id }
-        });
+    const venue = await prisma.venues.findUnique({
+        where: { id: existing.venue_id, account_id: req.user.account_id }
+    });
 
-        if (!existing) {
-            res.status(404).send({ "error": "Resource not found" });
-            return;
-        }
-
-        const venue = await prisma.venues.findUnique({
-            where: { id: existing.venue_id, account_id: req.user.account_id }
-        });
-
-        if (!venue) {
-            res.status(404).send({ "error": "Resource not found" });
-            return;
-        }
-
-        await prisma.areas.delete({
-            where: { id: req.params.id }
-        });
-
-        res.status(204).send('');
-    } catch (e) {
-        res.status(404).send({
-            "error": "Resource not found"
-        });
+    if (!venue) {
+        throw new AppError('Area not found', 404);
     }
-}
 
-async function createOne(req: express.Request, res: express.Response) {
+    const area = await prisma.areas.update({
+        where: { id: req.params.id },
+        data
+    });
+
+    res.status(200).send(area);
+});
+
+export const deleteOne = asyncHandler(async (req, res) => {
+    const existing = await prisma.areas.findUnique({
+        where: { id: req.params.id }
+    });
+
+    if (!existing) {
+        throw new AppError('Area not found', 404);
+    }
+
+    const venue = await prisma.venues.findUnique({
+        where: { id: existing.venue_id, account_id: req.user.account_id }
+    });
+
+    if (!venue) {
+        throw new AppError('Area not found', 404);
+    }
+
+    await prisma.areas.delete({
+        where: { id: req.params.id }
+    });
+
+    res.status(204).send();
+});
+
+export const createOne = asyncHandler(async (req, res) => {
     const { venue_id, ...data } = req.body;
 
     const venue = await prisma.venues.findUnique({
@@ -118,15 +99,12 @@ async function createOne(req: express.Request, res: express.Response) {
     });
 
     if (!venue) {
-        res.status(400).send({ "error": "Invalid venue_id" });
-        return;
+        throw new AppError('Invalid venue_id', 400);
     }
 
     const area = await prisma.areas.create({
         data: { ...data, venue_id }
-    })
+    });
 
     res.status(201).send(area);
-}
-
-export {findMany, getOne, deleteOne, createOne, updateOne}
+});
