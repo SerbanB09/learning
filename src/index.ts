@@ -23,10 +23,10 @@ app.use(express.json());
 app.use('/users', userRoutes);
 
 // Accounts
-app.get('/accounts', accounts.findMany)
-app.get('/accounts/:id', accounts.getOne)
-app.patch('/accounts/:id', accounts.updateOne)
-app.delete('/accounts/:id', accounts.deleteOne)
+app.get('/accounts', authenticate, accounts.findMany)
+app.get('/accounts/:id', authenticate,  accounts.getOne)
+app.patch('/accounts/:id', authenticate, accounts.updateOne)
+app.delete('/accounts/:id', authenticate, accounts.deleteOne)
 app.put('/accounts', accounts.createOne)
 
 // Venues

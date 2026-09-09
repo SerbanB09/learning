@@ -7,7 +7,15 @@ meta {
 get {
   url: {{host}}/users
   body: none
-  auth: inherit
+  auth: bearer
+}
+
+params:query {
+  : 
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 settings {

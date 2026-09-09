@@ -24,7 +24,7 @@ export const findMany = asyncHandler(async (req, res) => {
 
 export const getOne = asyncHandler(async (req, res) => {
     const user = await prisma.users.findUnique({
-        where: { id: req.params.id }
+        where: { id: req.params.id, account_id: req.user.account_id }
     });
 
     if (!user) {
@@ -65,7 +65,7 @@ export const updateOne = asyncHandler(async (req, res) => {
 
 export const deleteOne = asyncHandler(async (req, res) => {
     const existingUser = await prisma.users.findUnique({
-        where: { id: req.params.id }
+        where: { id: req.params.id, account_id: req.user.account_id }
     });
 
     if (!existingUser) {
@@ -94,7 +94,10 @@ export const createOne = asyncHandler(async (req, res) => {
             roles: ['member'],
             password: hashed_password
         }
-    }).catch(() => null);
+    }).catch((err) => {
+        console.error('CREATE USER FAILED:', err);
+        return null;
+    });
 
     if (!user) {
         throw new AppError('Could not create user', 400);

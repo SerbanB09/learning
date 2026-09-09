@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../index'; // Importăm aplicația Express configurată curat
+import app from '../index';
 
 describe('POST /users/login', () => {
     it('ar trebui să returneze 400 dacă datele trimise sunt invalide (Zod Validation)', async () => {
