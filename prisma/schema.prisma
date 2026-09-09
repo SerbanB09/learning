@@ -1,7 +1,7 @@
 generator client {
   provider      = "prisma-client"
   output        = "../src/generated/prisma"
-  binaryTargets = ["darwin-arm64", "darwin"]
+  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -68,5 +68,5 @@ model bookings {
   table_id     String
   person_count Int
   date         DateTime
-  note         String
+  note         String?
 }
